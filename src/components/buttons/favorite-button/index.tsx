@@ -10,7 +10,7 @@ type FavoriteButtonProps = {
 export const FavoriteButton = ({ onClick, isDisabled }: FavoriteButtonProps = {}) => (
     <button
         onClick={onClick}
-        disabled={true}
+        disabled={isDisabled}
         type='button'
         className={style.favorite_button}
         aria-label='Add to Favorites'
