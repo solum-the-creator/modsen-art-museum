@@ -54,7 +54,8 @@
     "stylelint": "^16.8.1",
     "stylelint-config-prettier": "^9.0.5",
     "typescript": "^5.5.4",
-    "typescript-plugin-css-modules": "^5.1.0"
+    "typescript-plugin-css-modules": "^5.1.0",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "prettier": "arui-presets-lint/prettier",
   "commitlint": {
