@@ -26,7 +26,8 @@
             "@pages/*": ["./src/pages/*"],
             "@types/*": ["./src/types/*"],
             "@routes/*": ["./src/routes/*"],
-            "@utils/*": ["./src/utils/*"]
+            "@utils/*": ["./src/utils/*"],
+            "@assets/*": ["./src/assets/*"]
         },
         "plugins": [
             {
