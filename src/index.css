@@ -8,6 +8,11 @@
     --primary-accent-color: #f17900;
     --secondary-accent-color: #e0a449;
 
+    --button-color: #f9f9f9;
+    --button-active-color: #fbd7b24d;
+    --button-pressed-color: #fbd6b288;
+    --button-disabled-color: #f9f9f9bc;
+
     --primary-light-color: #fff;
 
     --header-background-color: linear-gradient(
@@ -16,6 +21,7 @@
         #484848 69.22%,
         #282828 98.98%
     );
+    --card-border: 1px solid #f0f1f1;
 }
 
 :root {
