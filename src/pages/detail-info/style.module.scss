@@ -22,8 +22,10 @@
             .image {
                 width: 100%;
                 height: auto;
+                max-height: 720px;
 
                 object-fit: contain;
+                object-position: top right;
             }
 
             .button {

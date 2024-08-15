@@ -9,8 +9,8 @@ import style from './style.module.scss';
 type PictureCardProps = {
     id: number;
     title: string;
-    artist: string;
     isPublic: boolean;
+    artist?: string;
     image?: string;
     variant?: 'small' | 'big';
 };
@@ -18,8 +18,8 @@ type PictureCardProps = {
 export const PictureCard = ({
     id,
     title,
-    artist,
     isPublic,
+    artist,
     image,
     variant = 'big',
 }: PictureCardProps) => {
