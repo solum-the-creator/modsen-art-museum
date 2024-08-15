@@ -1,3 +1,4 @@
+import { Footer } from '@components/footer';
 import { Header } from '@components/header';
 
 import style from './style.module.scss';
@@ -9,8 +10,6 @@ export const Layout = ({ children }: LayoutProps) => (
     <div className={style.layout}>
         <Header />
         <main className={style.main}>{children}</main>
-        <footer>
-            <p>Footer</p>
-        </footer>
+        <Footer />
     </div>
 );
