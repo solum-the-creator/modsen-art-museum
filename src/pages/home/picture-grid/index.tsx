@@ -1,28 +1,36 @@
-import testImage from '@assets/picture1.jpg';
 import { PictureCard } from '@components/picture-card';
+import { ApiEndpoints } from '@constants/api';
+import { PictureData } from '@customTypes/api-types';
+import { useFetch } from '@hooks/use-fetch';
+import { createFieldsString, getImageUrl } from '@utils/api-utils';
 
 import style from './style.module.scss';
 
-const pictures = [
-    {
-        id: '1',
-        title: 'Title 1 Long Title Title 1 Long Title Title 1 Long Title Title 1 sdadsasdLong Title',
-        artist: 'Artist 1',
-        image: testImage,
-        isPublic: true,
-    },
-    { id: '2', title: 'Title 2', artist: 'Artist 2', isPublic: false },
-    { id: '3', title: 'Title 3', artist: 'Artist 3', image: testImage, isPublic: true },
-    { id: '4', title: 'Title 4', artist: 'Artist 4', isPublic: false },
-    { id: '5', title: 'Title 5', artist: 'Artist 5', image: testImage, isPublic: true },
-    { id: '6', title: 'Title 6', artist: 'Artist 6', isPublic: false },
-    { id: '7', title: 'Title 7', artist: 'Artist 7', image: testImage, isPublic: true },
-];
+export const PictureGrid = () => {
+    const {
+        data: pictures,
+        isLoading,
+        error,
+    } = useFetch<PictureData[]>({
+        endpoint: ApiEndpoints.ARTWORKS,
+        fields: createFieldsString<PictureData>(),
+        limit: 9,
+    });
 
-export const PictureGrid = () => (
-    <div className={style.container}>
-        {pictures.map((picture) => (
-            <PictureCard key={picture.id} {...picture} variant='small' />
-        ))}
-    </div>
-);
+    const validPictures = pictures || [];
+
+    return (
+        <div className={style.container}>
+            {validPictures.map((picture) => (
+                <PictureCard
+                    key={picture.id}
+                    title={picture.title}
+                    image={getImageUrl(picture.image_id)}
+                    artist={picture.artist_title}
+                    isPublic={picture.is_public_domain}
+                    variant='small'
+                />
+            ))}
+        </div>
+    );
+};

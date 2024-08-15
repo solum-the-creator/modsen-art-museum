@@ -41,11 +41,14 @@ export const PictureCard = ({
             <div className={style.card_content}>
                 {isSmall && (
                     <div className={style.small_card_image}>
-                        {image ? (
-                            <img src={image} alt={title} className={style.small_image} />
-                        ) : (
-                            <DefaultImage />
-                        )}
+                        <img
+                            src={image}
+                            alt={title}
+                            onLoad={() => setIsLoaded(true)}
+                            style={{ display: isLoaded ? 'block' : 'none' }}
+                            className={style.small_image}
+                        />
+                        {!isLoaded && <DefaultImage />}
                     </div>
                 )}
                 <div className={style.card_info}>
