@@ -24,6 +24,7 @@ export const PictureGrid = () => {
             {validPictures.map((picture) => (
                 <PictureCard
                     key={picture.id}
+                    id={picture.id}
                     title={picture.title}
                     image={getImageUrl(picture.image_id)}
                     artist={picture.artist_title}
