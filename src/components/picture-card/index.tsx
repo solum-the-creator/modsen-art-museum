@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import DefaultImage from '@assets/clear-image.svg';
 import { FavoriteButton } from '@components/buttons/favorite-button';
 
@@ -20,16 +21,20 @@ export const PictureCard = ({
 }: PictureCardProps) => {
     const isPublicText = isPublic ? 'Public' : 'Private';
     const isSmall = variant === 'small';
+    const [isLoaded, setIsLoaded] = useState(false);
 
     return (
         <div className={isSmall ? style.small_card : style.large_card}>
             {!isSmall && (
                 <div className={style.large_card_image}>
-                    {image ? (
-                        <img src={image} alt={title} className={style.large_image} />
-                    ) : (
-                        <DefaultImage />
-                    )}
+                    <img
+                        src={image}
+                        alt={title}
+                        className={style.large_image}
+                        onLoad={() => setIsLoaded(true)}
+                        style={{ display: isLoaded ? 'block' : 'none' }}
+                    />
+                    {!isLoaded && <DefaultImage />}
                 </div>
             )}
 
