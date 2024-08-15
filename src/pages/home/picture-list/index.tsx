@@ -1,36 +1,35 @@
 import { useState } from 'react';
-import testImage from '@assets/picture1.jpg';
 import { Pagination } from '@components/pagination';
 import { PictureCard } from '@components/picture-card';
+import { ApiEndpoints } from '@constants/api';
+import { PictureData } from '@customTypes/api-types';
+import { useFetch } from '@hooks/use-fetch';
+import { createFieldsString, getImageUrl } from '@utils/api-utils';
 
 import style from './style.module.scss';
 
-const pictures = [
-    {
-        id: '1',
-        title: 'Title 1 Long Title Title 1 Long Title Title 1 Long Title Title 1 sdadsasdLong Title',
-        artist: 'Artist 1',
-        image: testImage,
-        isPublic: true,
-    },
-    { id: '2', title: 'Title 2', artist: 'Artist 2', isPublic: false },
-    { id: '3', title: 'Title 3', artist: 'Artist 3', image: testImage, isPublic: true },
-    { id: '4', title: 'Title 4', artist: 'Artist 4', isPublic: false },
-    { id: '5', title: 'Title 5', artist: 'Artist 5', image: testImage, isPublic: true },
-    { id: '6', title: 'Title 6', artist: 'Artist 6', isPublic: false },
-    { id: '7', title: 'Title 7', artist: 'Artist 7', image: testImage, isPublic: true },
-];
-
 export const PictureList = () => {
+    const {
+        data: pictures,
+        isLoading,
+        error,
+    } = useFetch<PictureData[]>({
+        endpoint: ApiEndpoints.ARTWORKS,
+        page: 10,
+        fields: createFieldsString<PictureData>(),
+    });
+
     const [currentPage, setCurrentPage] = useState(1);
     const picturePerPage = 3;
-    const totalPages = Math.ceil(pictures.length / picturePerPage);
+
+    const validPictures = pictures || [];
+    const totalPages = Math.ceil(validPictures.length / picturePerPage);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    const displayedPictures = pictures.slice(
+    const displayedPictures = validPictures.slice(
         (currentPage - 1) * picturePerPage,
         currentPage * picturePerPage,
     );
@@ -39,7 +38,13 @@ export const PictureList = () => {
         <div className={style.container}>
             <div className={style.picture_list}>
                 {displayedPictures.map((picture) => (
-                    <PictureCard key={picture.id} {...picture} />
+                    <PictureCard
+                        key={picture.id}
+                        title={picture.title}
+                        artist={picture.artist_title}
+                        image={getImageUrl(picture.image_id)}
+                        isPublic={picture.is_public_domain}
+                    />
                 ))}
             </div>
             <div className={style.pagination}>
