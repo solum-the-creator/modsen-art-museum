@@ -17,8 +17,8 @@ export const Favorites = () => (
             </h1>
             <div className={style.favorites_block}>
                 <div className={style.text_block}>
-                    <h3 className={style.subtitle}>Here some more</h3>
-                    <h2 className={style.title}>Other works for you</h2>
+                    <h3 className={style.subtitle}>Saved by you</h3>
+                    <h2 className={style.title}>Your favorites list</h2>
                 </div>
                 <ErrorBoundary fallback={<GeneralError />}>
                     <PictureGrid />
