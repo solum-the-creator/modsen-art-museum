@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Loader } from '@components/loader';
 import { Pagination } from '@components/pagination';
 import { PictureCard } from '@components/picture-card';
 import { ApiEndpoints } from '@constants/api';
@@ -33,6 +34,10 @@ export const PictureList = () => {
         (currentPage - 1) * picturePerPage,
         currentPage * picturePerPage,
     );
+
+    if (isLoading) {
+        return <Loader isLoading={isLoading} />;
+    }
 
     return (
         <div className={style.container}>

@@ -1,3 +1,4 @@
+import { Loader } from '@components/loader';
 import { PictureCard } from '@components/picture-card';
 import { ApiEndpoints } from '@constants/api';
 import { PictureData } from '@customTypes/api-types';
@@ -18,6 +19,10 @@ export const PictureGrid = () => {
     });
 
     const validPictures = pictures || [];
+
+    if (isLoading) {
+        return <Loader isLoading={isLoading} />;
+    }
 
     return (
         <div className={style.container}>

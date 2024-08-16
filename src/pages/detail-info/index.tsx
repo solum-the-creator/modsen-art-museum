@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { FavoriteButton } from '@components/buttons/favorite-button';
+import { Loader } from '@components/loader';
 import { ApiEndpoints } from '@constants/api';
 import { DetailPictureData } from '@customTypes/api-types';
 import { useFetch } from '@hooks/use-fetch';
@@ -10,7 +11,7 @@ import style from './style.module.scss';
 export const DetailInfo = () => {
     const { id } = useParams();
     const {
-        data: picture,
+        data: picture = [],
         isLoading,
         error,
     } = useFetch<DetailPictureData>({
@@ -18,8 +19,8 @@ export const DetailInfo = () => {
         fields: createFieldsString<DetailPictureData>(),
     });
 
-    if (!picture) {
-        return <div className={style.container}>No data available.</div>;
+    if (isLoading) {
+        return <Loader isLoading={isLoading} size={120} />;
     }
 
     return (
