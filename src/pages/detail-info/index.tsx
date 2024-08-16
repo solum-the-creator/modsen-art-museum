@@ -4,13 +4,14 @@ import { GeneralError } from '@components/errors/general-error';
 import { Loader } from '@components/loader';
 import { ApiEndpoints } from '@constants/api';
 import { DetailPictureData } from '@customTypes/api-types';
+import { useFavorites } from '@hooks/use-favorites';
 import { useFetch } from '@hooks/use-fetch';
 import { createFieldsString, getImageUrl } from '@utils/api-utils';
 
 import style from './style.module.scss';
 
 export const DetailInfo = () => {
-    const { id } = useParams();
+    const { id = '' } = useParams();
     const {
         data: picture,
         isLoading,
@@ -19,6 +20,16 @@ export const DetailInfo = () => {
         endpoint: `${ApiEndpoints.ARTWORKS}/${id}`,
         fields: createFieldsString<DetailPictureData>(),
     });
+
+    const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+
+    const handleFavoriteClick = () => {
+        if (isFavorite(id)) {
+            removeFavorite(id);
+        } else {
+            addFavorite(id);
+        }
+    };
 
     if (isLoading) {
         return <Loader isLoading={isLoading} size={120} />;
@@ -46,7 +57,7 @@ export const DetailInfo = () => {
                         alt={picture.title}
                     />
                     <div className={style.button}>
-                        <FavoriteButton />
+                        <FavoriteButton onClick={handleFavoriteClick} isFavorite={isFavorite(id)} />
                     </div>
                 </div>
                 <div className={style.info}>
