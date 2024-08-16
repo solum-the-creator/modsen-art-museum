@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import testImage from '@assets/picture1.jpg';
 import { FavoriteButton } from '@components/buttons/favorite-button';
 import { ApiEndpoints } from '@constants/api';
 import { DetailPictureData } from '@customTypes/api-types';
@@ -19,9 +18,9 @@ export const DetailInfo = () => {
         fields: createFieldsString<DetailPictureData>(),
     });
 
-    if (!picture) {
-        return <div className={style.container}>No data available.</div>;
-    }
+    // if (!picture) {
+    //     return <div className={style.container}>No data available.</div>;
+    // }
 
     return (
         <div className={style.container}>
