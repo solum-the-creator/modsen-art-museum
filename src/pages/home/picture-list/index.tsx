@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { GeneralError } from '@components/errors/general-error';
 import { Loader } from '@components/loader';
 import { Pagination } from '@components/pagination';
 import { PictureCard } from '@components/picture-card';
+import { SortSelect } from '@components/sort-select';
 import { ApiEndpoints } from '@constants/api';
+import { SORT_OPTIONS } from '@constants/common';
 import { PictureData } from '@customTypes/api-types';
+import { SortOption } from '@customTypes/common';
 import { useFetch } from '@hooks/use-fetch';
 import { createFieldsString, getImageUrl } from '@utils/api-utils';
+import { sortPictures } from '@utils/sort-utils';
 
 import style from './style.module.scss';
 
@@ -22,18 +26,32 @@ export const PictureList = () => {
     });
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [sortOption, setSortOption] = useState<SortOption>(SORT_OPTIONS.DEFAULT);
     const picturePerPage = 3;
 
-    const validPictures = pictures || [];
-    const totalPages = Math.ceil(validPictures.length / picturePerPage);
-
-    const handlePageChange = (page: number) => {
+    const handlePageChange = useCallback((page: number) => {
         setCurrentPage(page);
-    };
+    }, []);
 
-    const displayedPictures = validPictures.slice(
-        (currentPage - 1) * picturePerPage,
-        currentPage * picturePerPage,
+    const handleSortChange = useCallback((option: SortOption) => {
+        setSortOption(option);
+    }, []);
+
+    const sortedPictures = useMemo(() => {
+        const validPictures = pictures || [];
+
+        return sortPictures(validPictures, sortOption);
+    }, [pictures, sortOption]);
+
+    const totalPages = useMemo(
+        () => Math.ceil(sortedPictures.length / picturePerPage),
+        [sortedPictures.length, picturePerPage],
+    );
+
+    const displayedPictures = useMemo(
+        () =>
+            sortedPictures.slice((currentPage - 1) * picturePerPage, currentPage * picturePerPage),
+        [sortedPictures, currentPage, picturePerPage],
     );
 
     if (isLoading) {
@@ -46,6 +64,7 @@ export const PictureList = () => {
 
     return (
         <div className={style.container}>
+            <SortSelect onChange={handleSortChange} />
             <div className={style.picture_list}>
                 {displayedPictures.map((picture) => (
                     <PictureCard
