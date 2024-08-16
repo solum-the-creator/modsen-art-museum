@@ -68,8 +68,8 @@ export const PictureCard = ({
                                 style={{ display: isLoaded ? 'block' : 'none' }}
                                 className={style.small_image}
                             />
+                            {!isLoaded && <DefaultImage />}
                         </Link>
-                        {!isLoaded && <DefaultImage />}
                     </div>
                 )}
                 <div className={style.card_info}>

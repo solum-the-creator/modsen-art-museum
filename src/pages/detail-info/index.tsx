@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import defaultImage from '@assets/clear-image.svg?url';
 import { FavoriteButton } from '@components/buttons/favorite-button';
 import { GeneralError } from '@components/errors/general-error';
 import { Loader } from '@components/loader';
@@ -55,6 +56,9 @@ export const DetailInfo = () => {
                         className={style.image}
                         src={getImageUrl(picture.image_id)}
                         alt={picture.title}
+                        onError={(e) => {
+                            e.currentTarget.src = defaultImage;
+                        }}
                     />
                     <div className={style.button}>
                         <FavoriteButton onClick={handleFavoriteClick} isFavorite={isFavorite(id)} />
