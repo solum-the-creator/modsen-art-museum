@@ -1,7 +1,11 @@
 import style from './style.module.scss';
 
-export const GeneralError = () => (
+type GeneralErrorProps = {
+    message?: string;
+};
+
+export const GeneralError = ({ message = 'Something went wrong.' }: GeneralErrorProps) => (
     <div className={style.container}>
-        <p className={style.text}>Something went wrong.</p>
+        <p className={style.text}>{message}</p>
     </div>
 );

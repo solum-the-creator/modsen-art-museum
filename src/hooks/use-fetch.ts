@@ -11,7 +11,7 @@ type FetchOptions = {
 export const useFetch = <T>({ endpoint, limit, page, fields }: FetchOptions) => {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<(Error & { status?: number }) | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +26,12 @@ export const useFetch = <T>({ endpoint, limit, page, fields }: FetchOptions) => 
                 const response = await fetch(url.toString());
 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.statusText}`);
+                    const responseError = new Error(
+                        `HTTP error! status: ${response.statusText}`,
+                    ) as Error & { status?: number };
+
+                    responseError.status = response.status;
+                    throw responseError;
                 }
 
                 const result = await response.json();
@@ -34,7 +39,7 @@ export const useFetch = <T>({ endpoint, limit, page, fields }: FetchOptions) => 
                 setError(null);
                 setData(result.data);
             } catch (err) {
-                setError(err as Error);
+                setError(err as Error & { status?: number });
             } finally {
                 setIsLoading(false);
             }

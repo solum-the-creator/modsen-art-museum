@@ -1,3 +1,4 @@
+import { GeneralError } from '@components/errors/general-error';
 import { Loader } from '@components/loader';
 import { PictureCard } from '@components/picture-card';
 import { ApiEndpoints } from '@constants/api';
@@ -22,6 +23,10 @@ export const PictureGrid = () => {
 
     if (isLoading) {
         return <Loader isLoading={isLoading} />;
+    }
+
+    if (error) {
+        return <GeneralError message='An error occurred. Please try again.' />;
     }
 
     return (

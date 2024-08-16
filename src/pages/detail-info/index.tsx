@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { FavoriteButton } from '@components/buttons/favorite-button';
+import { GeneralError } from '@components/errors/general-error';
 import { Loader } from '@components/loader';
 import { ApiEndpoints } from '@constants/api';
 import { DetailPictureData } from '@customTypes/api-types';
@@ -11,7 +12,7 @@ import style from './style.module.scss';
 export const DetailInfo = () => {
     const { id } = useParams();
     const {
-        data: picture = [],
+        data: picture,
         isLoading,
         error,
     } = useFetch<DetailPictureData>({
@@ -21,6 +22,18 @@ export const DetailInfo = () => {
 
     if (isLoading) {
         return <Loader isLoading={isLoading} size={120} />;
+    }
+
+    if (error) {
+        if (error.status === 404) {
+            return <GeneralError message='Picture not found.' />;
+        }
+
+        return <GeneralError message='An error occurred. Please try again.' />;
+    }
+
+    if (!picture) {
+        return <GeneralError message='No data available.' />;
     }
 
     return (
