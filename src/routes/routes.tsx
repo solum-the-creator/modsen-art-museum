@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import ErrorBoundary from '@components/error-boundary';
+import { GeneralError } from '@components/errors/general-error';
 import { Layout } from '@components/layout';
 import { UrlPaths } from '@constants/paths';
 import { DetailInfo } from '@pages/detail-info';
@@ -14,7 +15,7 @@ export const AppRoutes = () => (
             <Route
                 path={UrlPaths.DETAIL_INFO}
                 element={
-                    <ErrorBoundary fallback={<p>Something went wrong.</p>}>
+                    <ErrorBoundary fallback={<GeneralError />}>
                         <DetailInfo />
                     </ErrorBoundary>
                 }

@@ -18,9 +18,9 @@ export const DetailInfo = () => {
         fields: createFieldsString<DetailPictureData>(),
     });
 
-    // if (!picture) {
-    //     return <div className={style.container}>No data available.</div>;
-    // }
+    if (!picture) {
+        return <div className={style.container}>No data available.</div>;
+    }
 
     return (
         <div className={style.container}>

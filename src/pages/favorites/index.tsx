@@ -1,4 +1,6 @@
 import FavoriteIcon from '@assets/icons/bookmark-icon.svg';
+import ErrorBoundary from '@components/error-boundary';
+import { GeneralError } from '@components/errors/general-error';
 
 import { PictureGrid } from './picture-grid';
 
@@ -18,7 +20,9 @@ export const Favorites = () => (
                     <h3 className={style.subtitle}>Here some more</h3>
                     <h2 className={style.title}>Other works for you</h2>
                 </div>
-                <PictureGrid />
+                <ErrorBoundary fallback={<GeneralError />}>
+                    <PictureGrid />
+                </ErrorBoundary>
             </div>
         </div>
     </div>
