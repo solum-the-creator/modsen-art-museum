@@ -6,9 +6,10 @@ type FetchOptions = {
     limit?: number;
     page?: number;
     fields?: string;
+    ids?: string[];
 };
 
-export const useFetch = <T>({ endpoint, limit, page, fields }: FetchOptions) => {
+export const useFetch = <T>({ endpoint, limit, page, fields, ids }: FetchOptions) => {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<(Error & { status?: number }) | null>(null);
@@ -22,6 +23,7 @@ export const useFetch = <T>({ endpoint, limit, page, fields }: FetchOptions) => 
                 if (limit) url.searchParams.append('limit', limit.toString());
                 if (page) url.searchParams.append('page', page.toString());
                 if (fields) url.searchParams.append('fields', fields);
+                if (ids) url.searchParams.append('ids', ids.join(','));
 
                 const response = await fetch(url.toString());
 
@@ -46,7 +48,7 @@ export const useFetch = <T>({ endpoint, limit, page, fields }: FetchOptions) => 
         };
 
         fetchData();
-    }, [endpoint, limit, page, fields]);
+    }, [endpoint, limit, page, fields, ids]);
 
     return { data, isLoading, error };
 };
