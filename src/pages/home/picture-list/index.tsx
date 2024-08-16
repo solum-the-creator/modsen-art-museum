@@ -50,7 +50,7 @@ export const PictureList = () => {
                 {displayedPictures.map((picture) => (
                     <PictureCard
                         key={picture.id}
-                        id={picture.id}
+                        id={picture.id.toString()}
                         title={picture.title}
                         artist={picture.artist_title}
                         image={getImageUrl(picture.image_id)}

@@ -3,11 +3,12 @@ import { generatePath, Link } from 'react-router-dom';
 import DefaultImage from '@assets/clear-image.svg';
 import { FavoriteButton } from '@components/buttons/favorite-button';
 import { UrlPaths } from '@constants/paths';
+import { useFavorites } from '@hooks/use-favorites';
 
 import style from './style.module.scss';
 
 type PictureCardProps = {
-    id: number;
+    id: string;
     title: string;
     isPublic: boolean;
     artist?: string;
@@ -23,11 +24,21 @@ export const PictureCard = ({
     image,
     variant = 'big',
 }: PictureCardProps) => {
+    const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+
     const isPublicText = isPublic ? 'Public' : 'Private';
     const isSmall = variant === 'small';
     const [isLoaded, setIsLoaded] = useState(false);
 
     const path = generatePath(UrlPaths.DETAIL_INFO, { id: String(id) });
+
+    const handleFavoriteClick = () => {
+        if (isFavorite(id)) {
+            removeFavorite(id);
+        } else {
+            addFavorite(id);
+        }
+    };
 
     return (
         <div className={isSmall ? style.small_card : style.large_card}>
@@ -71,7 +82,7 @@ export const PictureCard = ({
                     <p className={style.card_public}>{isPublicText}</p>
                 </div>
                 <div className={style.card_actions}>
-                    <FavoriteButton />
+                    <FavoriteButton onClick={handleFavoriteClick} isFavorite={isFavorite(id)} />
                 </div>
             </div>
         </div>
