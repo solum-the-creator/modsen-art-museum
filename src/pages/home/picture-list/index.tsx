@@ -28,7 +28,6 @@ export const PictureList = ({ searchQuery }: PictureListProps) => {
         error,
     } = useFetch<PictureData[]>({
         endpoint: searchQuery ? `${ApiEndpoints.ARTWORKS}/search` : ApiEndpoints.ARTWORKS,
-        page: 1,
         fields: createFieldsString<PictureData>([
             'id',
             'title',

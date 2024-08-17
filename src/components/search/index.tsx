@@ -50,7 +50,6 @@ export const Search = ({ onChange, placeholder = 'Search art, artist, work...' }
                     name='query'
                     control={control}
                     rules={{
-                        required: true,
                         maxLength: 40,
                     }}
                     render={({ field }) => (
