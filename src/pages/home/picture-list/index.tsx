@@ -73,6 +73,10 @@ export const PictureList = ({ searchQuery }: PictureListProps) => {
         return <GeneralError message='An error occurred. Please try again.' />;
     }
 
+    if (!sortedPictures.length) {
+        return <GeneralError message='No data available.' />;
+    }
+
     return (
         <div className={style.container}>
             <SortSelect onChange={handleSortChange} />
