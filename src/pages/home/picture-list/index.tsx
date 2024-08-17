@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { GeneralError } from '@components/errors/general-error';
 import { Loader } from '@components/loader';
 import { Pagination } from '@components/pagination';
@@ -19,6 +19,9 @@ type PictureListProps = {
 };
 
 export const PictureList = ({ searchQuery }: PictureListProps) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sortOption, setSortOption] = useState<SortOption>(SORT_OPTIONS.DEFAULT);
+
     const {
         data: pictures,
         isLoading,
@@ -36,8 +39,10 @@ export const PictureList = ({ searchQuery }: PictureListProps) => {
         q: searchQuery || undefined,
     });
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sortOption, setSortOption] = useState<SortOption>(SORT_OPTIONS.DEFAULT);
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery]);
+
     const picturePerPage = 3;
 
     const handlePageChange = useCallback((page: number) => {
