@@ -14,15 +14,26 @@ import { sortPictures } from '@utils/sort-utils';
 
 import style from './style.module.scss';
 
-export const PictureList = () => {
+type PictureListProps = {
+    searchQuery?: string;
+};
+
+export const PictureList = ({ searchQuery }: PictureListProps) => {
     const {
         data: pictures,
         isLoading,
         error,
     } = useFetch<PictureData[]>({
-        endpoint: ApiEndpoints.ARTWORKS,
-        page: 10,
-        fields: createFieldsString<PictureData>(),
+        endpoint: searchQuery ? `${ApiEndpoints.ARTWORKS}/search` : ApiEndpoints.ARTWORKS,
+        page: 1,
+        fields: createFieldsString<PictureData>([
+            'id',
+            'title',
+            'artist_title',
+            'image_id',
+            'is_public_domain',
+        ]),
+        q: searchQuery || undefined,
     });
 
     const [currentPage, setCurrentPage] = useState(1);

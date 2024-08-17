@@ -15,7 +15,13 @@ export const PictureGrid = () => {
         error,
     } = useFetch<PictureData[]>({
         endpoint: ApiEndpoints.ARTWORKS,
-        fields: createFieldsString<PictureData>(),
+        fields: createFieldsString<PictureData>([
+            'id',
+            'title',
+            'image_id',
+            'artist_title',
+            'is_public_domain',
+        ]),
         limit: 9,
     });
 

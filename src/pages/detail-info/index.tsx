@@ -19,7 +19,18 @@ export const DetailInfo = () => {
         error,
     } = useFetch<DetailPictureData>({
         endpoint: `${ApiEndpoints.ARTWORKS}/${id}`,
-        fields: createFieldsString<DetailPictureData>(),
+        fields: createFieldsString<DetailPictureData>([
+            'id',
+            'title',
+            'image_id',
+            'artist_title',
+            'is_public_domain',
+            'credit_line',
+            'date_display',
+            'dimensions',
+            'artwork_type_title',
+            'place_of_origin',
+        ]),
     });
 
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
