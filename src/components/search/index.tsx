@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import SearchIcon from '@assets/icons/search-icon.svg';
+import { useDebounce } from '@hooks/use-debounce';
 
 import styles from './style.module.scss';
 
@@ -21,6 +22,7 @@ export const Search = ({ onChange, placeholder = 'Search art, artist, work...' }
     });
 
     const query = watch('query');
+    const debounceQuery = useDebounce(query, 500);
 
     const handleSearch = useCallback(
         async (data: SearchFormValues) => {
@@ -36,12 +38,12 @@ export const Search = ({ onChange, placeholder = 'Search art, artist, work...' }
             const isValid = await trigger('query');
 
             if (isValid) {
-                handleSearch({ query });
+                handleSearch({ query: debounceQuery });
             }
         };
 
         validateQuery();
-    }, [query, trigger, handleSearch]);
+    }, [debounceQuery, trigger, handleSearch]);
 
     return (
         <div className={styles.search_block}>
