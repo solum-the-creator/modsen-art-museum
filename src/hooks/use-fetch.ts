@@ -7,9 +7,10 @@ type FetchOptions = {
     page?: number;
     fields?: string;
     ids?: string[];
+    q?: string;
 };
 
-export const useFetch = <T>({ endpoint, limit, page, fields, ids }: FetchOptions) => {
+export const useFetch = <T>({ endpoint, limit, page, fields, ids, q }: FetchOptions) => {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<(Error & { status?: number }) | null>(null);
@@ -20,10 +21,11 @@ export const useFetch = <T>({ endpoint, limit, page, fields, ids }: FetchOptions
             try {
                 const url = new URL(`${API_BASE_URL}/${endpoint}`);
 
-                if (limit) url.searchParams.append('limit', limit.toString());
-                if (page) url.searchParams.append('page', page.toString());
-                if (fields) url.searchParams.append('fields', fields);
+                if (q) url.searchParams.append('q', q);
                 if (ids) url.searchParams.append('ids', ids.join(','));
+                if (page) url.searchParams.append('page', page.toString());
+                if (limit) url.searchParams.append('limit', limit.toString());
+                if (fields) url.searchParams.append('fields', fields);
 
                 const response = await fetch(url.toString());
 
@@ -48,7 +50,7 @@ export const useFetch = <T>({ endpoint, limit, page, fields, ids }: FetchOptions
         };
 
         fetchData();
-    }, [endpoint, limit, page, fields, ids]);
+    }, [endpoint, limit, page, fields, ids, q]);
 
     return { data, isLoading, error };
 };
