@@ -30,12 +30,12 @@
             grid-column: 1;
             grid-row: 1 / 3;
 
+            position: relative;
+
             @media screen and (max-width: 768px) {
                 grid-row: auto;
                 grid-column: auto;
             }
-
-            position: relative;
 
             .image {
                 width: 100%;
@@ -57,14 +57,14 @@
             grid-column: 2;
             grid-row: 1;
 
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
             @media screen and (max-width: 768px) {
                 grid-row: auto;
                 grid-column: auto;
             }
-
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
 
             .title {
                 font-family: 'Lexend Deca', sans-serif;
@@ -97,15 +97,15 @@
             grid-column: 2;
             grid-row: 2;
 
-            @media screen and (max-width: 768px) {
-                grid-row: auto;
-                grid-column: auto;
-            }
-
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             gap: 32px;
+
+            @media screen and (max-width: 768px) {
+                grid-row: auto;
+                grid-column: auto;
+            }
 
             .title {
                 font-family: 'Lexend Deca', sans-serif;
