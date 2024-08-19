@@ -3,14 +3,16 @@ import { Loader } from '@components/loader';
 import { PictureCard } from '@components/picture-card';
 import { ApiEndpoints } from '@constants/api';
 import { PictureData } from '@customTypes/api-types';
-import { useFavorites } from '@hooks/use-favorites';
 import { useFetch } from '@hooks/use-fetch';
 import { getImageUrl } from '@utils/api-utils';
 
 import style from './style.module.scss';
 
-export const PictureGrid = () => {
-    const { favorites } = useFavorites();
+type PictureGridProps = {
+    favorites: string[];
+};
+
+export const PictureGrid = ({ favorites }: PictureGridProps) => {
     const {
         data: pictures,
         isLoading,
