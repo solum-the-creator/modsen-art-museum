@@ -9,6 +9,9 @@ import style from './style.module.scss';
 
 export const Header = () => {
     const isHome = useLocation().pathname === UrlPaths.HOME;
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     return (
         <header className={style.header}>
@@ -16,7 +19,17 @@ export const Header = () => {
                 <div className={style.logo_container}>
                     <Logo />
                 </div>
-                <nav className={style.nav}>
+                <button
+                    type='button'
+                    className={`${style.burger_icon} ${isMenuOpen ? style.burger_open : ''}`}
+                    onClick={toggleMenu}
+                    aria-label='toggle menu'
+                >
+                    <span />
+                    <span />
+                    <span />
+                </button>
+                <nav className={`${style.nav} ${isMenuOpen ? style.nav_open : ''}`}>
                     <ul className={style.nav_list}>
                         {!isHome && (
                             <li className={style.nav_item}>
