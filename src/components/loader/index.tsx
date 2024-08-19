@@ -11,6 +11,7 @@ export const Loader = ({ isLoading, size = 80 }: LoaderProps) => {
     return (
         <div className={style.container}>
             <div
+                data-testid='loader-container'
                 className={style.loading_container}
                 style={{ width: `${size}px`, height: `${size}px` }}
             >
