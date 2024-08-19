@@ -5,6 +5,10 @@
 
     padding: 120px 32px;
 
+    @media screen and (max-width: 768px) {
+        padding: 64px 32px;
+    }
+
     .content {
         width: 100%;
         max-width: 1280px;
@@ -14,6 +18,10 @@
         align-items: center;
         gap: 120px;
 
+        @media screen and (max-width: 768px) {
+            gap: 64px;
+        }
+
         .title {
             font-family: 'Lexend Deca', sans-serif;
             font-size: 64px;
@@ -21,6 +29,11 @@
             font-weight: 700;
 
             text-align: center;
+
+            @media screen and (max-width: 560px) {
+                font-size: 56px;
+                line-height: 72px;
+            }
 
             .highlight {
                 color: var(--primary-accent-color);
