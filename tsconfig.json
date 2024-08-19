@@ -7,6 +7,8 @@
         "skipLibCheck": true,
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
@@ -22,11 +24,13 @@
             "@public/*": ["./public/*"],
             "@components/*": ["./src/components/*"],
             "@constants/*": ["./src/constants/*"],
+            "@context/*": ["./src/context/*"],
             "@hooks/*": ["./src/hooks/*"],
             "@pages/*": ["./src/pages/*"],
-            "@types/*": ["./src/types/*"],
+            "@customTypes/*": ["./src/types/*"],
             "@routes/*": ["./src/routes/*"],
-            "@utils/*": ["./src/utils/*"]
+            "@utils/*": ["./src/utils/*"],
+            "@assets/*": ["./src/assets/*"]
         },
         "plugins": [
             {
@@ -39,6 +43,6 @@
             }
         ]
     },
-    "include": ["src"],
+    "include": ["src", "./jest.setup.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

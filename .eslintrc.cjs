@@ -2,7 +2,7 @@ module.exports = {
     root: true,
     env: { browser: true, es2020: true },
     extends: [require.resolve('arui-presets-lint/eslint')],
-    ignorePatterns: ['dist', 'coverage', '*.cjs'],
+    ignorePatterns: ['dist', 'coverage', '*.cjs', '__mocks__'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: ['./tsconfig.eslint.json', './cypress/tsconfig.json'],
@@ -32,7 +32,7 @@ module.exports = {
         'import/no-extraneous-dependencies': [
             'error',
             {
-                devDependencies: ['cypress/**/*.ts', '/*.test.{ts,tsx,js,jsx}'],
+                devDependencies: ['cypress/**/*.ts', '**/*.test.ts', '**/*.test.tsx'],
             },
         ],
     },
