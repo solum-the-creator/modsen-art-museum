@@ -35,7 +35,7 @@ export const SortSelect = ({ onChange }: SortSelectProps) => {
                     <label htmlFor='sortOption' className={style.label}>
                         Sort by:
                     </label>
-                    <select {...field} className={style.select}>
+                    <select {...field} className={style.select} id='sortOption'>
                         <option value={SORT_OPTIONS.DEFAULT} className={style.option}>
                             Default
                         </option>
